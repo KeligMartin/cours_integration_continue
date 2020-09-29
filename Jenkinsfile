@@ -2,11 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Test') {
+        stage('Ok') {
             steps {
-                echo 'Testing..'
-                sh 'mvn test'
+                echo "Ok"
             }
+        }
+    }
+    post {
+        always {
+            emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
         }
     }
 }
